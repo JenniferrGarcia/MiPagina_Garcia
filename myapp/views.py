@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Project, Task
+from .models import Mascota, Usuario
 from django.shortcuts import render, redirect
-from .forms import CreateNewTask, CreateNewProject
+from .forms import CreateNewUsuario, CreateNewMascota
 
 # Create your views here.
 def index(request):
@@ -17,35 +17,33 @@ def about(request):
 def hello(request, username):
     return HttpResponse("Hello %s" % username)
 
-def projects(request):
-    # projects = list(Project.objects.values())
-    projects = Project.objects.all()
-    return render(request, 'projects/projects.html', {
-        'projects': projects
+def mascotas(request):
+    mascotas = Mascota.objects.all()
+    return render(request, 'mascotas/mascotas.html', {
+        'mascotas': mascotas
     })
 
-def tasks(request):
-    # task = get_object_or_404(Task, id=id)
-    tasks = Task.objects.all()
-    return render(request, 'tasks/tasks.html', {
-        'tasks': tasks
+def usuario(request):
+    usuario = Usuario.objects.all()
+    return render(request, 'usuario/usuario.html', {
+        'usuario': usuario
     })
 
-def create_task(request):
+def create_usuario(request):
     if request.method == 'GET':
-        return render(request, 'tasks/create_task.html', {
-        'form': CreateNewTask()})
+        return render(request, 'usuario/create_usuario.html', {
+        'form': CreateNewUsuario()})
     else:
-        Task.objects.create(title=request.POST['title'],description=request.POST['description'], project_id=2)
-        return redirect('/tasks/')
+        Usuario.objects.create(title=request.POST['title'],description=request.POST['description'], project_id=2)
+        return redirect('/usuario/')
 
-def create_project(request):
+def create_mascota(request):
     if request.method == 'GET':
-        return render(request, 'projects/create_project.html', {
-        'form': CreateNewProject()
+        return render(request, 'mascotas/create_mascota.html', {
+        'form': CreateNewMascota()
     })
     else:
-        Project.objects.create(name=request.POST["name"])
+        Mascota.objects.create(name=request.POST["name"])
         return render(request, 'projects/create_project.html', {
-        'form': CreateNewProject()
+        'form': CreateNewMascota()
     })

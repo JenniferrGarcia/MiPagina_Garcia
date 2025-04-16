@@ -1,18 +1,16 @@
 from django.db import models
 
 # Create your models here.
-class Project(models.Model):
+class Mascota(models.Model):
     name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
 
-class Task(models.Model):
-    title = models.CharField(max_length=200)
-    description = models.TextField()
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    done = models.BooleanField(default=False)
+class Usuario(models.Model):
+    name = models.CharField(max_length=200)
+    email = models.TextField()
 
     def __str__(self):
-        return self.title + ' - ' + self.project.name
+        return self.name
     

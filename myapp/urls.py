@@ -5,9 +5,9 @@ urlpatterns = [
     path('', views.index),
     path('about/', views.about),
     path('hello/<str:username>', views.hello),
-    path('projects/', views.projects),
-    path('tasks/', views.tasks),
-    path('create_task/', views.create_task),
-    path('create_project/', views.create_project),
+    path('mascotas/', views.mascotas),
+    path('usuario/', views.usuario),
+    path('crea_usuario/', views.create_usuario),
+    path('crea_mascota/', views.create_mascota),
 ]
 

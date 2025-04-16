@@ -1,8 +1,11 @@
 from django import forms
 
-class CreateNewTask(forms.Form): 
-    title = forms.CharField(label="Titulo de tarea")
-    description=forms.CharField(label="descripcion de la tarea", widget=forms.Textarea)
+class CreateNewUsuario(forms.Form): 
+    name = forms.CharField(label="Nombre del usuario")
+    email = forms.CharField(label="email del usuario", widget=forms.Textarea)
 
-class CreateNewProject(forms.Form):
-    name = forms.CharField(label="Nombre del proyecto")
+class CreateNewMascota(forms.Form):
+    name = forms.CharField(label="Nombre de la mascota")
+    raza = forms.CharField(label="Raza de la mascota")
+    edad = forms.CharField(label="Edad de la mascota")
+    
