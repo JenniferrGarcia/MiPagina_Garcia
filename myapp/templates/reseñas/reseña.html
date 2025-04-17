@@ -1,0 +1,15 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<h1>Reseñas 🧑‍💻</h1>
+
+{% for reseña in reseñas %}
+    <article>
+        <h2>{{ reseña.usuario.name }} sobre {{ reseña.mascota.name }}</h2>
+        <p>💡{{ reseña.comentario }}</p>
+    </article>
+{% empty %}
+    <p>No hay reseñas disponibles.</p>
+{% endfor %}
+
+{% endblock %}

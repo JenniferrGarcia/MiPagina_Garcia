@@ -17,4 +17,11 @@ class Mascota(models.Model):
     def __str__(self):
         return f"{self.name} ({self.raza})"
 
+class Reseña(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE)
+    comentario = models.TextField()
+
+    def __str__(self):
+        return f'Reseña de {self.usuario.name} sobre {self.mascota.name}'
     

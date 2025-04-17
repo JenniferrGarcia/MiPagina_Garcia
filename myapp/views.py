@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Mascota, Usuario
+from .models import Mascota, Usuario, Reseña
 from django.shortcuts import render, redirect
-from .forms import CreateNewUsuario, CreateNewMascota
+from .forms import CreateNewUsuario, CreateNewMascota, CreateNewReseña
 from django.shortcuts import get_object_or_404
 
 # Create your views here.
@@ -52,18 +52,38 @@ def create_mascota(request):
         form = CreateNewMascota(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            # Buscar al usuario por nombre
+            
             usuario = get_object_or_404(Usuario, name=data['usuario'])
-            # Crear la mascota con todos los datos
+
             Mascota.objects.create(
                 name=data['name'],
                 raza=data['raza'],
                 edad=data['edad'],
                 usuario=usuario
             )
-            return redirect('/mascotas/')  # O donde quieras redirigir
+            return redirect('/mascotas/')  
         else:
             return render(request, 'mascotas/create_mascota.html', {
                 'form': form
             })
-        
+
+def reseñas(request):
+    reseñas = Reseña.objects.all()  
+    return render(request, 'reseñas/reseña.html', {'reseñas': reseñas})
+
+def create_reseña(request):
+    if request.method == 'POST':
+        form = CreateNewReseña(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            # Crear la nueva reseña
+            Reseña.objects.create(
+                usuario=data['usuario'],
+                mascota=data['mascota'],
+                comentario=data['comentario']
+            )
+            return redirect('/reseñas/')  
+    else:
+        form = CreateNewReseña()
+
+    return render(request, 'reseñas/create_reseña.html', {'form': form})
