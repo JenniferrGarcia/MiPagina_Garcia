@@ -1,0 +1,20 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+  <h1>Buscar Mascota</h1>
+  <form method="get">
+    {{ form.as_p }}
+    <button type="submit">Buscar</button>
+  </form>
+
+  {% if mascotas %}
+    <h2>Resultados:</h2>
+    <ul>
+      {% for mascota in mascotas %}
+        <li>{{ mascota.name }}</li>
+      {% empty %}
+        <p>No se encontraron mascotas.</p>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}

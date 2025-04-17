@@ -11,5 +11,6 @@ urlpatterns = [
     path('crea_usuario/', views.create_usuario),
     path('crea_mascota/', views.create_mascota),
     path('crea_reseña/', views.create_reseña),
+    path('buscar_mascota/', views.buscar_mascota),
 ]
 

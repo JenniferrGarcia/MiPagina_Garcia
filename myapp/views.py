@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Mascota, Usuario, Reseña
 from django.shortcuts import render, redirect
-from .forms import CreateNewUsuario, CreateNewMascota, CreateNewReseña
+from .forms import CreateNewUsuario, CreateNewMascota, CreateNewReseña, BuscarMascotaForm
 from django.shortcuts import get_object_or_404
 
 # Create your views here.
@@ -87,3 +87,15 @@ def create_reseña(request):
         form = CreateNewReseña()
 
     return render(request, 'reseñas/create_reseña.html', {'form': form})
+
+def buscar_mascota(request):
+    form = BuscarMascotaForm(request.GET)  
+    mascotas = Mascota.objects.all() 
+
+    if form.is_valid():  
+        nombre = form.cleaned_data.get('name') 
+        if nombre:  
+            mascotas = Mascota.objects.filter(name__icontains=nombre) 
+
+    return render(request, 'mascotas/buscar_mascota.html', {'form': form, 'mascotas': mascotas})
+

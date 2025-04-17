@@ -17,3 +17,7 @@ class CreateNewReseña(forms.Form):
     usuario = forms.ModelChoiceField(queryset=Usuario.objects.all(), label="Usuario")
     mascota = forms.ModelChoiceField(queryset=Mascota.objects.all(), label="Mascota")
     comentario = forms.CharField(widget=forms.Textarea, label="Comentario")
+
+class BuscarMascotaForm(forms.Form):
+    name = forms.CharField(label='name', required=False)
+
