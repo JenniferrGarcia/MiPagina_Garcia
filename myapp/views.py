@@ -3,10 +3,11 @@ from django.http import HttpResponse
 from .models import Mascota, Usuario
 from django.shortcuts import render, redirect
 from .forms import CreateNewUsuario, CreateNewMascota
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 def index(request):
-    title = 'Mascotas Web!'
+    title = 'Mascotas Web!🦜'
     return render(request, 'index.html', {
         'title': title
     })
@@ -34,7 +35,11 @@ def create_usuario(request):
         return render(request, 'usuario/create_usuario.html', {
         'form': CreateNewUsuario()})
     else:
-        Usuario.objects.create(title=request.POST['title'],description=request.POST['description'], project_id=2)
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+
+        Usuario.objects.create(name=name, email=email)
+
         return redirect('/usuario/')
 
 def create_mascota(request):
@@ -42,8 +47,23 @@ def create_mascota(request):
         return render(request, 'mascotas/create_mascota.html', {
         'form': CreateNewMascota()
     })
+
     else:
-        Mascota.objects.create(name=request.POST["name"])
-        return render(request, 'projects/create_project.html', {
-        'form': CreateNewMascota()
-    })
+        form = CreateNewMascota(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            # Buscar al usuario por nombre
+            usuario = get_object_or_404(Usuario, name=data['usuario'])
+            # Crear la mascota con todos los datos
+            Mascota.objects.create(
+                name=data['name'],
+                raza=data['raza'],
+                edad=data['edad'],
+                usuario=usuario
+            )
+            return redirect('/mascotas/')  # O donde quieras redirigir
+        else:
+            return render(request, 'mascotas/create_mascota.html', {
+                'form': form
+            })
+        

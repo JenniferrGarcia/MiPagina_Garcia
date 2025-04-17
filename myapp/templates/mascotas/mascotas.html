@@ -4,10 +4,13 @@
 
 <h1>Mascotas</h1>
 
-{% for project in projects %}
+{% for mascota in mascotas %}
 
 <article>
-    <h1>{{mascota.name}}</h1>
+    <h2 class="nombre-mascota">{{ mascota.name }}</h2>
+    <p>Raza: {{ mascota.raza }}</p>
+    <p>Edad: {{ mascota.edad }}</p>
+    <p>Usuario: {{ mascota.usuario.name }}</p>
 </article>
 
 {% endfor %}

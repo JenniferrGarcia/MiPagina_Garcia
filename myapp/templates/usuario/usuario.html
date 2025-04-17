@@ -4,25 +4,11 @@
 
 <h1>Usuarios</h1>
 
-{% for task in tasks %}
+{% for usuario in usuario %}
 
 <article>
-    <h1>{{task.title}}</h1>
-    
-    {% if task.Done == False %}
-    <p>Tarea pendiente</p>
-    {% else %}
-    <p>Tarea realizada</p>
-    {% endif %}
-
-    <p>{{task.description}}</p>
-    <p>Project: {{task.project.name}}</p>
-    <button>
-        Delete
-    </button>
-    <button>
-        ✅ Done
-    </button>
+    <h2>{{ usuario.name }}</h2>
+        <p>Email: {{ usuario.email }}</p>
 </article>
 
 {% endfor %}
