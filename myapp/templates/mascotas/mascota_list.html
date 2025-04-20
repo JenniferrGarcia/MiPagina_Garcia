@@ -1,0 +1,24 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<h1>🐶 Lista de Mascotas (CBV)</h1>
+
+<ul>
+  {% for mascota in mascotas %}
+    <li>
+      <strong>{{ mascota.name }}</strong> ({{ mascota.raza }}) - Edad: {{ mascota.edad }}<br>
+      Dueño: {{ mascota.usuario.name }}<br>
+
+      <!-- Enlaces a las demás funciones CRUD -->
+      <a href="{% url 'mascota_cbv_detail' mascota.id %}">Ver</a> |
+      <a href="{% url 'mascota_cbv_update' mascota.id %}">Editar</a> |
+      <a href="{% url 'mascota_cbv_delete' mascota.id %}">Eliminar</a>
+    </li>
+  {% empty %}
+    <li>No hay mascotas registradas aún.</li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'mascota_cbv_create' %}">+ Agregar nueva mascota</a>
+{% endblock %}
+

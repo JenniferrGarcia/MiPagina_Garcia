@@ -1,0 +1,11 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+  <h1>{{ view.object.pk|yesno:"Editar Mascota,Nueva Mascota" }}</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+  </form>
+  <a href="{% url 'mascota_cbv_list' %}">Cancelar</a>
+{% endblock %}
+

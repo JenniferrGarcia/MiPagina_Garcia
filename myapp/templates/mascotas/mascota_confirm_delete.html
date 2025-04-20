@@ -1,0 +1,10 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+  <h1>¿Estás segura de eliminar a {{ mascota.name }}?</h1>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Sí, eliminar</button>
+    <a href="{% url 'mascota_cbv_list' %}">Cancelar</a>
+  </form>
+{% endblock %}
+
