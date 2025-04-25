@@ -4,6 +4,7 @@ from .models import Mascota, Usuario, Reseña
 from django.shortcuts import render, redirect
 from .forms import CreateNewUsuario, CreateNewMascota, CreateNewReseña, BuscarMascotaForm
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 def index(request):
@@ -106,37 +107,47 @@ from django.views.generic import ListView
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Mascota
+from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
 
 # Lista
-class MascotaListView(ListView):
+class MascotaListView(LoginRequiredMixin, ListView):
     model = Mascota
     template_name = 'mascotas/mascota_list.html'
     context_object_name = 'mascotas'
+    login_url = 'accounts:login'
 
 # Ver detalle de una mascota
-class MascotaDetailView(DetailView):
+class MascotaDetailView(LoginRequiredMixin, DetailView):
     model = Mascota
     template_name = 'mascotas/mascota_detail.html'
     context_object_name = 'mascota'
+    login_url = 'accounts:login'
 
 # Crear mascota
-class MascotaCreateView(CreateView):
+class MascotaCreateView(LoginRequiredMixin, CreateView):
     model = Mascota
     fields = ['name', 'raza', 'edad', 'usuario']
     template_name = 'mascotas/mascota_form.html'
     success_url = reverse_lazy('mascota_cbv_list')
+    login_url = 'accounts:login'
 
 # Editar mascota
-class MascotaUpdateView(UpdateView):
+class MascotaUpdateView(LoginRequiredMixin, UpdateView):
     model = Mascota
     fields = ['name', 'raza', 'edad', 'usuario']
     template_name = 'mascotas/mascota_form.html'
     success_url = reverse_lazy('mascota_cbv_list')
+    login_url = 'accounts:login'
 
 # Eliminar mascota
-class MascotaDeleteView(DeleteView):
+class MascotaDeleteView(LoginRequiredMixin, DeleteView):
     model = Mascota
     template_name = 'mascotas/mascota_confirm_delete.html'
     success_url = reverse_lazy('mascota_cbv_list')
+    login_url = 'accounts:login'
 
     

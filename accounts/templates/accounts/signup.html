@@ -1,0 +1,17 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<h3 style="text-align: center; color:seagreen;" > Registro de usuario</h3>
+
+<form method="post" style="max-width: 400px; margin: 2rem auto;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div style="text-align: center; margin-top: 1rem;">
+        <button type="submit">Crear cuenta</button>
+    </div>
+</form>
+
+<p style="text-align: center;">
+    ¿Ya tienes cuenta? <a href="{% url 'accounts:login' %}">Iniciar sesión</a>
+</p>
+{% endblock %}
