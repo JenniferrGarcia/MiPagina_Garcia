@@ -1,5 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mascotas Web{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Agregar estilos a la barra de navegación */
+        nav {
+            background-color: #f8f9fa; /* Fondo claro */
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 10px;
+            text-align: center;
+        }
+
+        nav ul li a {
+            display: block;
+            padding: 20px;
+            width: 180px; /* Tamaño del cuadro */
+            background-color: #ADD8E6; /* Color azul claro */
+            color: white; /* Color del texto */
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Efecto hover cuando el cursor pasa sobre el cuadro */
+        nav ul li a:hover {
+            background-color: #87CEEB; /* Color azul más oscuro al pasar el ratón */
+            transform: scale(1.1); /* Agranda el cuadro un poco */
+        }
+
+        /* Estilos generales para el contenido */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
 <nav>
     <ul>
+        <li>
+            {% if user.is_authenticated %}
+                {% if user.avatar %}    
+                    {% if user.avatar.imagen %}
+                        <img src="{{ user.avatar.imagen.url }}" alt="Avatar">
+                    {% endif %}
+                {% endif %}
+                <a href="{% url 'accounts:edit' %}">Editar Perfil</a>
+                <a href="{% url 'accounts:upload_avatar' %}">Subir Avatar</a>
+                <a href="{% url 'accounts:logout' %}">Cerrar sesión ({{ user.username }})</a>
+            {% else %}
+                <a href="{% url 'accounts:login' %}">Iniciar sesión</a>
+                <a href="{% url 'accounts:signup' %}">Registrarse</a>
+            {% endif %}    
+        </li>
         <li>
             <a href="/">Home</a>
         </li>
@@ -30,16 +102,138 @@
         <li>
             <a href="{% url 'mascota_cbv_list' %}">CBV Mascotas</a>
         </li>
+    </ul>
+</nav>
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>
+
+
+NUEVOOO
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mascotas Web{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Agregar estilos a la barra de navegación */
+        nav {
+            background-color: #f8f9fa; /* Fondo claro */
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 10px;
+            text-align: center;
+        }
+
+        nav ul li a {
+            display: block;
+            padding: 20px;
+            width: 180px; /* Tamaño del cuadro */
+            background-color: #ADD8E6; /* Color azul claro */
+            color: white; /* Color del texto */
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Efecto hover cuando el cursor pasa sobre el cuadro */
+        nav ul li a:hover {
+            background-color: #87CEEB; /* Color azul más oscuro al pasar el ratón */
+            transform: scale(1.1); /* Agranda el cuadro un poco */
+        }
+
+        /* Estilos generales para el contenido */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+
+        /* Estilo para el avatar */
+        .avatar-img {
+            width: 50px;  /* Tamaño de la imagen */
+            height: 50px; /* Tamaño de la imagen */
+            border-radius: 50%; /* Hace la imagen circular */
+            object-fit: cover; /* Asegura que la imagen no se distorsione */
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <ul>
         <li>
             {% if user.is_authenticated %}
+                {% if user.avatar %}
+                    {% if user.avatar.imagen %}
+                        <!-- Avatar pequeño -->
+                        <img src="{{ user.avatar.imagen.url }}" alt="Avatar" class="avatar-img">
+                    {% endif %}
+                {% endif %}
+                <a href="{% url 'accounts:edit' %}">Editar Perfil</a>
+                <a href="{% url 'accounts:upload_avatar' %}">Subir Avatar</a>
                 <a href="{% url 'accounts:logout' %}">Cerrar sesión ({{ user.username }})</a>
             {% else %}
                 <a href="{% url 'accounts:login' %}">Iniciar sesión</a>
                 <a href="{% url 'accounts:signup' %}">Registrarse</a>
-            {% endif %}    
+            {% endif %}
+        </li>
+        <li>
+            <a href="/">Home</a>
+        </li>
+        <li>
+            <a href="/about">About</a>
+        </li>
+        <li>
+            <a href="/mascotas">Mascotas</a>
+        </li>
+        <li>
+            <a href="/usuario">Usuarios</a>
+        </li>
+        <li>
+            <a href="/reseñas">Reseñas</a>
+        </li>
+        <li>
+            <a href="/crea_usuario">Crea usuario</a>
+        </li>
+        <li>
+            <a href="/crea_mascota">Crea mascota</a>
+        </li>
+        <li>
+            <a href="/crea_reseña">Crea reseña</a>
+        </li>
+        <li>
+            <a href="/buscar_mascota/">Buscar Mascota</a>
+        </li>
+        <li>
+            <a href="{% url 'mascota_cbv_list' %}">CBV Mascotas</a>
         </li>
     </ul>
 </nav>
 
 {% block content %}
 {% endblock %}
+
+</body>
+</html>
+

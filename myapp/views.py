@@ -5,32 +5,39 @@ from django.shortcuts import render, redirect
 from .forms import CreateNewUsuario, CreateNewMascota, CreateNewReseña, BuscarMascotaForm
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required 
 
 # Create your views here.
+@login_required(login_url='accounts:login')
 def index(request):
     title = 'Mascotas Web!🦜'
     return render(request, 'index.html', {
         'title': title
     })
 
+@login_required(login_url='accounts:login')
 def about(request):
     return render(request, 'about.html')
 
+@login_required(login_url='accounts:login')
 def hello(request, username):
     return HttpResponse("Hello %s" % username)
 
+@login_required(login_url='accounts:login')
 def mascotas(request):
     mascotas = Mascota.objects.all()
     return render(request, 'mascotas/mascotas.html', {
         'mascotas': mascotas
     })
 
+@login_required(login_url='accounts:login')
 def usuario(request):
     usuario = Usuario.objects.all()
     return render(request, 'usuario/usuario.html', {
         'usuario': usuario
     })
 
+@login_required(login_url='accounts:login')
 def create_usuario(request):
     if request.method == 'GET':
         return render(request, 'usuario/create_usuario.html', {
@@ -43,6 +50,7 @@ def create_usuario(request):
 
         return redirect('/usuario/')
 
+@login_required(login_url='accounts:login')
 def create_mascota(request):
     if request.method == 'GET':
         return render(request, 'mascotas/create_mascota.html', {
@@ -68,10 +76,12 @@ def create_mascota(request):
                 'form': form
             })
 
+@login_required(login_url='accounts:login')
 def reseñas(request):
     reseñas = Reseña.objects.all()  
     return render(request, 'reseñas/reseña.html', {'reseñas': reseñas})
 
+@login_required(login_url='accounts:login')
 def create_reseña(request):
     if request.method == 'POST':
         form = CreateNewReseña(request.POST)
@@ -89,6 +99,7 @@ def create_reseña(request):
 
     return render(request, 'reseñas/create_reseña.html', {'form': form})
 
+@login_required(login_url='accounts:login')
 def buscar_mascota(request):
     form = BuscarMascotaForm(request.GET)  
     mascotas = Mascota.objects.all() 
